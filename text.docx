@@ -61,3 +61,151 @@ https://github.com/sudheerj/reactjs-interview-questions#react-interview-question
 
 
 
+What is JSX?
+JSX stands for JavaScript XML and it is an XML-like syntax extension to ECMAScript. Basically it just provides the syntactic sugar for the React.createElement(type, props, ...children) function, giving us expressiveness of JavaScript along with HTML like template syntax.
+
+In the example below, the text inside <h1> tag is returned as JavaScript function to the render function.
+
+export default function App() {
+  return (
+      <h1 className="greeting">{"Hello, this is a JSX Code!"}</h1>
+  );
+}
+If you don't use JSX syntax then the respective JavaScript code should be written as below,
+
+import { createElement } from 'react';
+
+export default function App() {
+  return createElement(
+    'h1',
+    { className: 'greeting' },
+    'Hello, this is a JSX Code!'
+  );
+}
+See Class
+class App extends React.Component {
+  render() {
+    return (
+        <h1 className="greeting">{"Hello, this is a JSX Code!"}</h1>
+    );
+  }
+}
+Note: JSX is stricter than HTML
+
+
+What is state in React?
+State of a component is an object that holds some information that may change over the lifetime of the component. The important point is whenever the state object changes, the component re-renders. It is always recommended to make our state as simple as possible and minimize the number of stateful components.
+
+state
+
+Let's take an example of User component with message state. Here, useState hook has been used to add state to the User component and it returns an array with current state and function to update it.
+
+import React, { useState } from "react";
+
+function User() {
+  const [message, setMessage] = useState("Welcome to React world");
+
+  return (
+    <div>
+      <h1>{message}</h1>
+    </div>
+  );
+}
+See Class
+class User extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      message: "Welcome to React world",
+    };
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>{this.state.message}</h1>
+      </div>
+    );
+  }
+}
+State is similar to props, but it is private and fully controlled by the component ,i.e., it is not accessible to any other component till the owner component decides to pass it.
+
+
+
+
+What are props in React?
+Props are inputs to components. They are single values or objects containing a set of values that are passed to components on creation similar to HTML-tag attributes. Here, the data is passed down from a parent component to a child component.
+
+The primary purpose of props in React is to provide following component functionality:
+
+Pass custom data to your component.
+Trigger state changes.
+Use via this.props.reactProp inside component's render() method.
+For example, let us create an element with reactProp property:
+
+<Element reactProp={"1"} />
+This reactProp (or whatever you came up with) attribute name then becomes a property attached to React's native props object which originally already exists on all components created using React library.
+
+props.reactProp
+For example, the usage of props in function component looks like below:
+
+import React from "react";
+import ReactDOM from "react-dom";
+
+const ChildComponent = (props) => {
+  return (
+    <div>
+      <p>{props.name}</p>
+      <p>{props.age}</p>
+    </div>
+  );
+};
+
+const ParentComponent = () => {
+  return (
+    <div>
+      <ChildComponent name="John" age="30" />
+      <ChildComponent name="Mary" age="25" />
+    </div>
+  );
+};
+The properties from props object can be accessed directly using destructing feature from ES6 (ECMAScript 2015). The above child component can be simplified like below.
+
+  const ChildComponent = ({name, age}) => {
+      return (
+        <div>
+          <p>{name}</p>
+          <p>{age}</p>
+        </div>
+      );
+    };
+See Class
+The Props accessed in Class Based Component as below
+      import React from "react";
+      import ReactDOM from "react-dom";
+
+      class ChildComponent extends React.Component {
+        render() {
+          return (
+            <div>
+              <p>{this.props.name}</p>
+              <p>{this.props.age}</p>
+            </div>
+          );
+        }
+      }
+
+      class ParentComponent extends React.Component {
+        render() {
+          return (
+            <div>
+              <ChildComponent name="John" age="30" />
+              <ChildComponent name="Mary" age="25" />
+            </div>
+          );
+        }
+      }
+
+
+
